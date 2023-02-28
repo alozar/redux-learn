@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { VStack, StackDivider, Flex, Box, Heading, Spacer, ButtonGroup, Button, Text } from '@chakra-ui/react';
 import { addCashAction, getCashAction } from './store/cashReducer';
-import { addCustomerAction, removeCustomerAction } from './store/customersReducer';
+import { addCustomerAction, addManyCustomersAction, removeCustomerAction } from './store/customersReducer';
+import { fetchAddCustomers } from './store/asyncActions/customers';
 
 function App() {
   const dispatch = useDispatch();
@@ -22,6 +23,9 @@ function App() {
       id: Date.now(),
     };
     dispatch(addCustomerAction(customer));
+  };
+  const addManyCustomers = () => {
+    dispatch(fetchAddCustomers());
   };
   const removeCustomer = (id) => {
     dispatch(removeCustomerAction(id));
@@ -44,7 +48,7 @@ function App() {
       </Flex>
       <ButtonGroup mx="auto">
         <Button colorScheme='teal' onClick={addCustomer}>Добавить клиента</Button>
-        <Button colorScheme='teal' onClick={removeCustomer}>Удалить клиента</Button>
+        <Button colorScheme='teal' onClick={addManyCustomers}>Получить клиентов из бд</Button>
       </ButtonGroup>
       {customers.length > 0 ?
         customers.map(customer => (
