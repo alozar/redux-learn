@@ -3,7 +3,7 @@ import { Button, Flex, Heading, ButtonGroup, Box, Spacer } from '@chakra-ui/reac
 
 function App() {
   const dispatch = useDispatch();
-  const cash = useSelector(state => state.cash);
+  const cash = useSelector(state => state.cash.cash);
   const addCash = () => {
     const cash = Number(prompt());
     dispatch({type: "ADD_CASH", payload: cash});
@@ -24,7 +24,6 @@ function App() {
         <Button colorScheme='teal' onClick={getCash}>Снять счет</Button>
       </ButtonGroup>
     </Flex>
-      
   );
 }
 
