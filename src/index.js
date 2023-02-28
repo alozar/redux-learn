@@ -3,12 +3,31 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { ChakraProvider } from '@chakra-ui/react';
 
+const defaultState = { cash: 0 };
+const reducer = (state = defaultState, action) => {
+  switch (action.type) {
+    case "ADD_CASH":
+        return { ...state, cash: state.cash + action.payload };
+        case "GET_CASH":
+        return { ...state, cash: state.cash - action.payload };
+    default:
+      return state;
+  }
+};
+const store = createStore(reducer);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <Provider store={store}>
+    <ChakraProvider>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </ChakraProvider>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
